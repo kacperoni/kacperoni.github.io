@@ -18,6 +18,18 @@ Mobile design:
 
 ![](./screenshots/mobile.png)
 
+Picture hover: 
+
+![](./screenshots/picture-hover.png)
+
+Header hover: 
+
+![](./screenshots/header-hover.png)
+
+Name hover: 
+
+![](./screenshots/name-hover.png)
+
 ### Links
 
 - Live Site URL: [Live site URL](https://kacperoni.github.io/qr-code-component-main/)
