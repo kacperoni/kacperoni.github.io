@@ -11,9 +11,11 @@ My first challenge, simply landing page basic stuff.
 ### Screenshots
 
 Desktop design:
+
 ![](./screenshots/desktop.png)
 
 Mobile design:
+
 ![](./screenshots/mobile.png)
 
 ### Links
