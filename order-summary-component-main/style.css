@@ -1,0 +1,117 @@
+html{
+    font-size: 16px;
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-image: url('./images/pattern-background-desktop.svg'),url('./images/pattern-background-desktop.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: hsl(225, 100%, 94%);
+    background-position: top -350px left 0;
+    font-family: 'Red Hat Display', sans-serif;
+}
+
+main{
+    display: flex;
+    justify-content: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10vh 2vh 0vh 2vh;
+    border-radius: 25px;
+    max-width: 50vh;
+    background-color: hsl(0, 0%, 100%);
+}
+
+.hero-image{
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background-image: url('./images/illustration-hero.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 25vh;
+    width: 100%;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+}
+
+h1{
+    font-weight: 800;
+    color: hsl(223, 47%, 23%);
+    font-size: 1.8rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+p{
+    margin-top: 0;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: hsl(224, 23%, 55%);
+    padding: 0rem 3rem 0rem 3rem;
+}
+
+.item-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: hsl(225, 100%, 98%);
+    width: 90%;
+    border-radius: 10px;
+    padding: 1rem 0rem 1rem 0rem;
+    margin-bottom: 2rem;
+}
+
+.item{
+    display: flex;
+}
+
+.icon{
+    margin: 0rem 1.5rem 0rem 1.5rem;
+}
+
+h2{
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 800;
+    color: hsl(223, 47%, 23%);
+}
+
+.price{
+    color: hsl(224, 23%, 55%);
+}
+
+.edit{
+    margin-right: 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+button{
+    width: 90%;
+    background-color: hsl(245, 75%, 52%);
+    padding: 1rem 0rem 1rem 0rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: hsl(225, 100%, 98%);
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.cancel{
+    text-decoration: none;
+    font-weight: 800;
+    color: hsl(224, 23%, 55%);
+    margin-bottom: 2rem;
+}
