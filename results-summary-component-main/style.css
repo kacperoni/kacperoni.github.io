@@ -9,7 +9,7 @@ main{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 20vh;
+    margin-top: 25vh;
 }
 
 .left{
@@ -19,13 +19,13 @@ main{
     background-image: linear-gradient(to bottom, hsl(252, 100%, 67%),hsl(241, 81%, 54%));
     border-radius: 30px;
     padding: 1rem;
-    width:30vh;
+    width:32vh;
 }
 
 .right{
     display:flex;
     flex-direction: column;
-    width: 30vh;
+    width: 32vh;
     border-bottom-right-radius: 30px;
     border-top-right-radius: 30px;
     padding: 1vh 3vh 0vh 3vh;
