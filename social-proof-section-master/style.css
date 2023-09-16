@@ -1,9 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;700&display=swap');
-  @media (min-width: 376px){
+  @media (min-width: 1440px){
     header{
         background-image: url("./images/bg-pattern-top-desktop.svg");
         background-repeat: no-repeat;
         grid-template-columns: repeat(2, 1fr);
+        padding: 50px;
+    }
+
+    header h1{
+      font-size: 64px;
+      text-align: left;
+    }
+
+    header p{
+      text-align: left;
+      padding: 10px 50px 20px 50px;
+      width: 65%;
+    }
+
+    .rates {
+      padding: 50px;
+    }
+
+    .rate{
+      display: flex;
+      align-items: center;
+      padding:20px;
+    }
+
+    .stars{
+      display: flex;
+      align-items: center;
+    }
+    .stars svg{
+      display: block;
     }
 
     section{
@@ -24,6 +54,20 @@
         background-image: url("./images/bg-pattern-bottom-mobile.svg");
         background-repeat: no-repeat;
       }
+
+      header h1{
+        font-size: 40px;
+        text-align: center;
+      }
+
+      header p{
+        text-align: center;
+        padding: 0px 18px;
+      }
+
+      .rate{
+        padding: 15px 10px;
+      }
   }
 
   body{
@@ -38,7 +82,6 @@
     display: grid;
     gap:15px;
     margin-bottom: 25px;
-    
   }
 
   section{
@@ -50,8 +93,6 @@
 header h1 {
     color: hsl(300, 43%, 22%);
     font-weight: 700;
-    font-size: 40px;
-    text-align: center;
     line-height: .8;
     padding: 30px 50px 0px 50px;
 }
@@ -59,9 +100,6 @@ header h1 {
 header p {
     font-weight: 500;
     color: hsl(303, 10%, 53%);
-    text-align: center;
-    text-justify: distribute-all-lines;
-    padding: 0px 18px;
     font-size: 18px;
     line-height: 1.2;   
 }
@@ -73,7 +111,6 @@ header p {
     text-align: center;
     color:hsl(300, 43%, 22%);
     font-weight: 700;
-    padding: 15px 10px;
 }
 
 .stars{
