@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;800&display=swap');
 
-html, body {
-    height: 100%;
+*{
+    box-sizing: border-box;
 }
 
 body{
@@ -11,25 +11,21 @@ body{
     font-family: 'Figtree', sans-serif;
 }
 
-main{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-}
-
 .card{
     background: hsl(0, 0%, 100%);
     border: 1px solid hsl(0, 0%, 7%);
     border-radius: 16px;
-    box-shadow: 16px 16px hsl(0, 0%, 7%);
-    padding: 20px 20px 10px 20px;
-    width: 336px;
+    box-shadow: 8px 8px hsl(0, 0%, 7%);
+    padding: 1rem;
+    margin: 5rem auto;
+    width: calc(375px - 2rem);
+    min-width: calc(375px - 2rem);
 }
 
-.card__image{
-    display: block;
+.card__image-wrapper{
     border-radius: 16px;
+    overflow: hidden;
+    max-width: 336px;
 }
 
 .card__badge{
@@ -48,12 +44,14 @@ main{
 
 .card__description{
     color: hsl(0, 0%, 50%);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
 }
 
 .card__author__avatar{
     display: inline-block;
     vertical-align: middle;
-    width: 32px;
+    max-width: 32px;
 }
 
 .card__author__name{
@@ -63,8 +61,11 @@ main{
     margin: 0 8px;
 }
 
-@media only screen and (max-width: 375px) {
-    .card, .card__image{
-        width: 275px;
+@media(min-width: 376px){
+    .card{
+        width: 375px;
     }
-  }
+    .card__description{
+        font-size: 1rem;
+    }
+}
