@@ -18,8 +18,8 @@ body{
     box-shadow: 8px 8px hsl(0, 0%, 7%);
     padding: 1rem;
     margin: 5rem auto;
-    width: calc(375px - 2rem);
-    min-width: calc(375px - 2rem);
+    width: calc(375px - 3rem);
+    min-width: calc(375px - 3rem);
 }
 
 .card__image-wrapper{
@@ -44,7 +44,7 @@ body{
 
 .card__description{
     color: hsl(0, 0%, 50%);
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     margin-bottom: 1.5rem;
 }
 
