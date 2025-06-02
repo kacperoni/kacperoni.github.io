@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kalkulator frezowania - iOS Style</title>
+<style>
+  /* Font i podstawowy reset */
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&display=swap');
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #f2f2f7;
+    margin: 0;
+    padding: 30px 15px;
+    color: #1c1c1e;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .container {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 30px 25px;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-weight: 600;
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #000;
+  }
+
+  label {
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 8px;
+    color: #3c3c4399;
+  }
+
+  select, input {
+    width: 100%;
+    padding: 14px 15px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: 1px solid #d1d1d6;
+    background: #fafafa;
+    color: #1c1c1e;
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    transition: border-color 0.3s ease;
+  }
+
+  select:focus, input:focus {
+    outline: none;
+    border-color: #007aff;
+    background: white;
+  }
+
+  .result {
+    background: #f9f9f9;
+    border-radius: 15px;
+    padding: 20px 25px;
+    font-size: 16px;
+    color: #1c1c1e;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.07);
+  }
+
+  .result p {
+    margin: 12px 0;
+  }
+
+  .warning {
+    margin-top: 20px;
+    color: #ff3b30;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  /* Przycisk minimalistyczny */
+  button {
+    background: #007aff;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    width: 100%;
+    padding: 15px 0;
+    font-weight: 600;
+    font-size: 17px;
+    cursor: pointer;
+    transition: background 0.25s ease;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background: #005bb5;
+  }
+
+  @media (max-width: 400px) {
+    .container {
+      padding: 20px 15px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Kalkulator frezowania</h1>
+
+  <label for="material">Materiał</label>
+  <select id="material" aria-label="Wybierz materiał">
+    <option value="aluminium">Aluminium</option>
+    <option value="s355">Stal konstrukcyjna S355</option>
+    <option value="stn">Stal nierdzewna</option>
+    <option value="c35c45">Stal C35/C45</option>
+  </select>
+
+  <label for="operation">Typ operacji</label>
+  <select id="operation" aria-label="Wybierz typ operacji">
+    <option value="zgrubne">Frezowanie zgrubne</option>
+    <option value="dokladne">Frezowanie dokładne</option>
+    <option value="rowki">Pod rowki / wpusty</option>
+    <option value="ksztaltowe_zgrubne">Frezowanie kształtowe zgrubne</option>
+    <option value="ksztaltowe_dokladne">Frezowanie kształtowe dokładne</option>
+  </select>
+
+  <label for="diameter">Średnica freza (mm)</label>
+  <input type="number" id="diameter" min="1" max="100" value="8" aria-label="Podaj średnicę freza w milimetrach" />
+
+  <label for="teeth">Liczba ostrzy</label>
+  <input type="number" id="teeth" min="1" max="10" value="2" aria-label="Podaj liczbę ostrzy" />
+
+  <button id="calculateBtn">Oblicz</button>
+
+  <div class="result" id="result" aria-live="polite" aria-atomic="true"></div>
+  <div class="warning" id="warning" role="alert" aria-live="assertive"></div>
+</div>
+
+<script>
+  const maxSpeed = 1750;
+
+  const paramsTable = {
+    aluminium: {
+      zgrubne: { Vc: 400, fz: 0.20 },
+      dokladne: { Vc: 600, fz: 0.10 },
+      rowki: { Vc: 300, fz: 0.15 },
+      ksztaltowe_zgrubne: { Vc: 350, fz: 0.18 },
+      ksztaltowe_dokladne: { Vc: 500, fz: 0.10 }
+    },
+    s355: {
+      zgrubne: { Vc: 100, fz: 0.10 },
+      dokladne: { Vc: 60, fz: 0.05 },
+      rowki: { Vc: 40, fz: 0.07 },
+      ksztaltowe_zgrubne: { Vc: 80, fz: 0.09 },
+      ksztaltowe_dokladne: { Vc: 55, fz: 0.05 }
+    },
+    stn: {
+      zgrubne: { Vc: 80, fz: 0.06 },
+      dokladne: { Vc: 50, fz: 0.04 },
+      rowki: { Vc: 35, fz: 0.05 },
+      ksztaltowe_zgrubne: { Vc: 60, fz: 0.05 },
+      ksztaltowe_dokladne: { Vc: 45, fz: 0.04 }
+    },
+    c35c45: {
+      zgrubne: { Vc: 90, fz: 0.08 },
+      dokladne: { Vc: 55, fz: 0.05 },
+      rowki: { Vc: 40, fz: 0.07 },
+      ksztaltowe_zgrubne: { Vc: 70, fz: 0.07 },
+      ksztaltowe_dokladne: { Vc: 50, fz: 0.05 }
+    }
+  };
+
+  function calculate_ap(material, operation, d) {
+    const factorTable = {
+      aluminium: {
+        zgrubne: 0.3,
+        dokladne: 0.1,
+        rowki: 0.05,
+        ksztaltowe_zgrubne: 0.2,
+        ksztaltowe_dokladne: 0.1
+      },
+      s355: {
+        zgrubne: 0.2,
+        dokladne: 0.08,
+        rowki: 0.04,
+        ksztaltowe_zgrubne: 0.15,
+        ksztaltowe_dokladne: 0.08
+      },
+      stn: {
+        zgrubne: 0.15,
+        dokladne: 0.06,
+        rowki: 0.03,
+        ksztaltowe_zgrubne: 0.1,
+        ksztaltowe_dokladne: 0.06
+      },
+      c35c45: {
+        zgrubne: 0.2,
+        dokladne: 0.07,
+        rowki: 0.04,
+        ksztaltowe_zgrubne: 0.15,
+        ksztaltowe_dokladne: 0.07
+      }
+    };
+    const factor = factorTable[material]?.[operation] ?? 0.1;
+    return d * factor;
+  }
+
+  function calculate() {
+    const material = document.getElementById('material').value;
+    const operation = document.getElementById('operation').value;
+    const d = parseFloat(document.getElementById('diameter').value);
+    const z = parseInt(document.getElementById('teeth').value);
+    const resultDiv = document.getElementById('result');
+    const warningDiv = document.getElementById('warning');
+
+    warningDiv.textContent = '';
+    resultDiv.textContent = '';
+
+    if (!d || d <= 0 || !z || z <= 0) {
+      resultDiv.textContent = 'Proszę wpisać poprawne wartości dla średnicy i liczby ostrzy.';
+      return;
+    }
+
+    const baseParams = paramsTable[material][operation];
+    if (!baseParams) {
+      resultDiv.textContent = 'Brak parametrów dla wybranego materiału i operacji.';
+      return;
+    }
+
+    const Vc = baseParams.Vc;
+    const fz = baseParams.fz;
+
+    const N = Math.round((1000 * Vc) / (Math.PI * d));
+    const vf = Math.round(N * fz * z);
+    const ap = calculate_ap(material, operation, d);
+
+    let warningText = '';
+    if (N > maxSpeed) {
+      warningText = `⚠️ Obliczona prędkość obrotowa (${N} obr/min) przekracza limit maszyny (${maxSpeed} obr/min).`;
+    }
+
+    resultDiv.innerHTML = `
+      <p><strong>Prędkość skrawania (Vc):</strong> ${Vc.toFixed(1)} m/min</p>
+      <p><strong>Posuw na ostrze (fz):</strong> ${fz.toFixed(3)} mm/ząb</p>
+      <p><strong>Prędkość obrotowa głowicy (N):</strong> ${N} obr/min</p>
+      <p><strong>Posuw stołu (vf):</strong> ${vf} mm/min</p>
+      <p><strong>Głębokość skrawania (aₚ):</strong> ${ap.toFixed(2)} mm (proponowana)</p>
+    `;
+    warningDiv.textContent = warningText;
+  }
+
+  document.getElementById('calculateBtn').addEventListener('click', calculate);
+
+  // Opcjonalnie kalkulacja po zmianie wartości inputów (można odkomentować jeśli chcesz)
+  // ['material', 'operation', 'diameter', 'teeth'].forEach(id => {
+  //   document.getElementById(id).addEventListener('input', calculate);
+  // });
+
+  window.onload = calculate;
+</script>
+
+</body>
+</html>
