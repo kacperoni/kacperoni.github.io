@@ -1,0 +1,20 @@
+{
+  "name": "Kalkulator PWA",
+  "short_name": "KALKPWA",
+  "description": "Kalkulator as a Progressive Web App",
+  "scope": "/kalkulator/",
+  "start_url": "/kalkulator/index.html",
+ 
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+ 
+  "display": "standalone", 
+ 
+  "icons": [
+      {
+        "src": "/kalkulator/img/icon.png",
+        "type": "image/png",
+        "sizes": "320x320"
+      }
+  ]
+}
